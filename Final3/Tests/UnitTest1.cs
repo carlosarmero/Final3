@@ -5,11 +5,11 @@ using OpenQA.Selenium.Firefox;
 using Serilog;
 
 [Collection("LoginTestsCollection")]
-public class LoginTests : IDisposable, IClassFixture<BrowserFixture>
+public class LoginTests : IDisposable, IClassFixture<LoginTests>
 {
-    private readonly IWebDriver driver;
+    private IWebDriver driver;
     private readonly LoginPage loginPage;
-    public BrowserFixture browser;
+    //private readonly BrowserFixture browser = new BrowserFixture();
     public LoginTests()
     {
         string currentDirectory = Directory.GetCurrentDirectory();
@@ -21,9 +21,8 @@ public class LoginTests : IDisposable, IClassFixture<BrowserFixture>
                .MinimumLevel.Debug()
                .WriteTo.File(logFilePath)
                .CreateLogger();
-        browser = new BrowserFixture();
-        Console.WriteLine(browser.Browser);
-        driver = GetDriver(browser.Browser); // Usa el navegador del fixture
+        //browser = new BrowserFixture();
+        driver = GetDriver("chrome"); // Usa el navegador del fixture
         loginPage = new LoginPage(driver);
     }
 
@@ -103,12 +102,12 @@ public class LoginTests : IDisposable, IClassFixture<BrowserFixture>
     }
     public void Dispose()
     {
-        driver.Quit();
+        driver?.Quit();
         Log.CloseAndFlush();
     }
     [CollectionDefinition("LoginTestsCollection", DisableParallelization = false)]
     public class LoginTestsCollection : ICollectionFixture<LoginTests>
     {
-        // Esta clase no necesita contener código, se utiliza solo para definir la colección
+        // This class doesn't need to contain any code; it serves to define the collection.
     }
 }
