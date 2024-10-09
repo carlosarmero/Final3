@@ -3,15 +3,12 @@ using OpenQA.Selenium.Chrome;
 using FluentAssertions;
 using OpenQA.Selenium.Firefox;
 using Serilog;
-using Xunit.Sdk;
-using FluentAssertions.Execution;
-using Microsoft.VisualStudio.TestPlatform.ObjectModel;
 public class LoginTests : IDisposable
 {
     private readonly IWebDriver driver;
     private readonly LoginPage loginPage;
 
-    public LoginTests(string browser = "chrome") // Parámetro para seleccionar el navegador
+    public LoginTests(string browser = "firefox") // Parámetro para seleccionar el navegador
     {
         string currentDirectory = Directory.GetCurrentDirectory();
         string projectDirectory = Directory.GetParent(currentDirectory).Parent.FullName;
@@ -28,7 +25,7 @@ public class LoginTests : IDisposable
         Console.WriteLine(logFilePath);
     }
 
-    private IWebDriver GetDriver(string browser)//escoge navegador
+    private IWebDriver GetDriver(string browser)//escoge driver para navegador
     {
         return browser.ToLower() switch
         {
@@ -81,7 +78,7 @@ public class LoginTests : IDisposable
             throw; // Lanza la excepción nuevamente para que xUnit lo registre como fallido
         }
     }
-    //Test Login form with credentials by passing Username & Password
+    //Test Login form with credentials by passing valid Username & Password
     [Theory]
     [InlineData("standard_user", "secret_sauce")]
     public void UC3_TestLoginWithValidCredentials(string username, string password)
