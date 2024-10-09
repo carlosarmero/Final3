@@ -1,0 +1,11 @@
+2024-10-09 09:12:16.313 -05:00 [ERR] Error durante la prueba UC2
+Xunit.Sdk.XunitException: Expected errorMessage to be "Epic sadface: Password is required" with a length of 34, but "Epic sadface: Username and password do not match any user in this service" has a length of 73, differs near "Use" (index 14).
+   at FluentAssertions.Execution.XUnit2TestFramework.Throw(String message)
+   at FluentAssertions.Execution.TestFrameworkProvider.Throw(String message)
+   at FluentAssertions.Execution.DefaultAssertionStrategy.HandleFailure(String message)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Execution.AssertionScope.FailWith(Func`1 failReasonFunc)
+   at FluentAssertions.Primitives.StringEqualityValidator.ValidateAgainstLengthDifferences()
+   at FluentAssertions.Primitives.StringValidator.Validate()
+   at FluentAssertions.Primitives.StringAssertions`1.Be(String expected, String because, Object[] becauseArgs)
+   at LoginTests.UC2_TestLoginWithUsernameOnly(String username, String password, String expectedError) in C:\Users\carlos herrerra\source\repos\Final3\Final3\Tests\UnitTest1.cs:line 70
