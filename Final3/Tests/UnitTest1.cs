@@ -6,13 +6,37 @@ using Serilog;
 using Xunit.Sdk;
 using FluentAssertions.Execution;
 using Microsoft.VisualStudio.TestPlatform.ObjectModel;
-public class LoginTests : IDisposable
+using OpenQA.Selenium.BiDi.Communication;
+
+[Collection("LoginTestsCollection")]
+public class LoginTests : IClassFixture<BrowserFixture>, IDisposable
 {
     private readonly IWebDriver driver;
     private readonly LoginPage loginPage;
+    string navegador = "chrome";
 
-    public LoginTests(string browser = "chrome") // Parámetro para seleccionar el navegador
+    //public BrowserFixture browser;// = new BrowserFixture("firefox");
+    //public LoginTests() // Recibe el fixture
+    //{
+    //    browser = new BrowserFixture();
+    //    Console.WriteLine(browser.Browser);
+    //    driver = GetDriver(browser.Browser); // Usa el navegador del fixture
+    //    loginPage = new LoginPage(driver);
+    //    // Aquí también puedes configurar tu logger
+    //    string currentDirectory = Directory.GetCurrentDirectory();
+    //       string projectDirectory = Directory.GetParent(currentDirectory).Parent.FullName;
+    //       string projectDirectory1 = Directory.GetParent(projectDirectory).Parent.FullName;
+    //       string logsDirectory = Path.Combine(projectDirectory1, "Final3", "Logs");
+    //       string logFilePath = Path.Combine(logsDirectory, "log-.txt");
+    //       Log.Logger = new LoggerConfiguration()
+    //           .MinimumLevel.Debug()
+    //           .WriteTo.File(logFilePath)
+    //           .CreateLogger();
+    //}
+
+    public LoginTests() // Parámetro para seleccionar el navegador
     {
+        //camino para escribir en log los errores
         string currentDirectory = Directory.GetCurrentDirectory();
         string projectDirectory = Directory.GetParent(currentDirectory).Parent.FullName;
         string projectDirectory1 = Directory.GetParent(projectDirectory).Parent.FullName;
@@ -22,10 +46,8 @@ public class LoginTests : IDisposable
             .MinimumLevel.Debug()
             .WriteTo.File(logFilePath)
             .CreateLogger();
-        driver = GetDriver(browser); // Inicializa el driver según el navegador
-        loginPage = new LoginPage(driver);
-
-        Console.WriteLine(logFilePath);
+        driver = GetDriver(navegador); // Inicializa el driver según el navegador
+        loginPage = new LoginPage(driver);//instancia loginpage
     }
 
     private IWebDriver GetDriver(string browser)//escoge navegador
@@ -106,5 +128,10 @@ public class LoginTests : IDisposable
     {
         driver.Quit();
         Log.CloseAndFlush();
+    }
+    [CollectionDefinition("LoginTestsCollection", DisableParallelization = true)]
+    public class LoginTestsCollection : ICollectionFixture<LoginTests>
+    {
+        // Esta clase no necesita contener código, se utiliza solo para definir la colección
     }
 }
