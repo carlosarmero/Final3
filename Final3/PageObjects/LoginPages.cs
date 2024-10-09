@@ -1,44 +1,4 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Firefox;
-using Xunit;
-
-public static class DriverHelper
-{
-    private static IWebDriver driver;
-
-    public static IWebDriver GetDriver(string browser)
-    {
-        if (driver != null)
-        {
-            return driver; // Retorna el driver existente si ya está inicializado
-        }
-
-        switch (browser.ToLower())
-        {
-            case "chrome":
-                driver = new ChromeDriver();
-                break;
-            case "firefox":
-                driver = new FirefoxDriver();
-                break;
-            default:
-                throw new InvalidOperationException("Browser not supported.");
-        }
-
-        return driver;
-    }
-
-    public static void CloseDriver()
-    {
-        if (driver != null)
-        {
-            driver.Quit();
-            driver = null;
-        }
-    }
-}
-
 public class LoginPage
 {
     private readonly IWebDriver driver;

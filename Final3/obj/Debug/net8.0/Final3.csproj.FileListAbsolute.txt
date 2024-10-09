@@ -106,3 +106,4 @@ C:\Users\carlos herrerra\source\repos\Final3\Final3\obj\Debug\net8.0\refint\Fina
 C:\Users\carlos herrerra\source\repos\Final3\Final3\obj\Debug\net8.0\Final3.pdb
 C:\Users\carlos herrerra\source\repos\Final3\Final3\obj\Debug\net8.0\Final3.genruntimeconfig.cache
 C:\Users\carlos herrerra\source\repos\Final3\Final3\obj\Debug\net8.0\ref\Final3.dll
+C:\Users\carlos herrerra\source\repos\Final3\Final3\obj\Debug\net8.0\Final3.sourcelink.json
