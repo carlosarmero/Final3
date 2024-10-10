@@ -42,6 +42,7 @@ public class LoginTests : IDisposable
         try
         {
             driver.Navigate().GoToUrl("https://www.saucedemo.com/");
+            loginPage.UserNameField.SendKeys(username);
             loginPage.PasswordField.SendKeys(password);
             loginPage.UserNameField.Clear();
             loginPage.PasswordField.Clear();
