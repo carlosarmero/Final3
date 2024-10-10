@@ -3,13 +3,13 @@ using OpenQA.Selenium.Chrome;
 using FluentAssertions;
 using OpenQA.Selenium.Firefox;
 using Serilog;
+using OpenQA.Selenium.BiDi.Communication;
 
 [Collection("LoginTestsCollection")]
-public class LoginTests : IDisposable, IClassFixture<LoginTests>
+public class LoginTests : IDisposable
 {
-    private IWebDriver driver;
-    private readonly LoginPage loginPage;
-    //private readonly BrowserFixture browser = new BrowserFixture();
+    private readonly IWebDriver driver;
+    private readonly LoginPage loginPage    ;
     public LoginTests()
     {
         string currentDirectory = Directory.GetCurrentDirectory();
@@ -21,9 +21,10 @@ public class LoginTests : IDisposable, IClassFixture<LoginTests>
                .MinimumLevel.Debug()
                .WriteTo.File(logFilePath)
                .CreateLogger();
-        //browser = new BrowserFixture();
-        driver = GetDriver("chrome"); // Usa el navegador del fixture
-        loginPage = new LoginPage(driver);
+        driver = GetDriver("chrome");
+       //this.loginPage = loginPage; // Use the injected LoginPage
+        loginPage = new LoginPage(driver); 
+
     }
 
     private IWebDriver GetDriver(string browser)//escoge navegador
@@ -102,12 +103,14 @@ public class LoginTests : IDisposable, IClassFixture<LoginTests>
     }
     public void Dispose()
     {
-        driver?.Quit();
+        driver.Quit();
         Log.CloseAndFlush();
     }
     [CollectionDefinition("LoginTestsCollection", DisableParallelization = false)]
     public class LoginTestsCollection : ICollectionFixture<LoginTests>
     {
         // This class doesn't need to contain any code; it serves to define the collection.
+        //IWebDriver driver = new ChromeDriver(); // or FirefoxDriver(), based on your needs
+        //LoginPage loginPage = new LoginPage(driver: driver);
     }
 }
